@@ -1,0 +1,27 @@
+import requests
+
+# Set up the Genius API access token
+access_token = "<YOUR_ACCESS_TOKEN>"
+
+# Set the track and artist name
+track_name = "Believer"
+artist_name = "Imagine Dragons"
+
+# Construct the search query
+search_query = f"{track_name} {artist_name}"
+
+# Make a request to the Genius API
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "User-Agent": "My-App",
+}
+url = f"https://api.genius.com/search?q={search_query}"
+response = requests.get(url, headers=headers)
+data = response.json()
+
+# Get the first search result and retrieve the song lyrics
+search_result = data["response"]["hits"][0]
+lyrics_url = search_result["result"]["url"]
+
+# Print the lyrics URL
+print("Lyrics URL:", lyrics_url)
